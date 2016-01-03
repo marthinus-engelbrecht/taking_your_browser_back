@@ -16,7 +16,8 @@ class Router {
         let found = state.path === path;
         if(found){
           //Injected
-          this.history.pushState(null, null, path);
+          this.history.pushState(state.title, null, path);
+          this.document.title = state.title;
         }
         return found;
     });
