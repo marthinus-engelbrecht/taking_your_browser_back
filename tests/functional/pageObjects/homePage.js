@@ -3,11 +3,14 @@ import Page from './page.js';
 class HomePage extends Page{
   constructor(){
     super();
-    this.register = browser.element('#register');
   }
 
-  * open(){
-    return yield super.open('/home');
+  open(){
+    return super.open('/home');
+  }
+
+  register(){
+    return browser.clickShadowElement('home-page', '#register');
   }
 }
 

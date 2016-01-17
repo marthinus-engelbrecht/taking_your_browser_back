@@ -1,8 +1,6 @@
 'use strict';
 
-require("babel-core/register");
-
-require('babel-polyfill');
+require('babel-core/register');
 
 exports.config = {
     
@@ -118,13 +116,22 @@ exports.config = {
     //
     // Gets executed before all workers get launched.
     onPrepare: function() {
-        // do something
+
     },
     //
     // Gets executed before test execution begins. At this point you will have access to all global
     // variables like `browser`. It is the perfect place to define custom commands.
     before: function() {
-        // do something
+        browser.addCommand("clickShadowElement", function(hostSelector, shadowElementSelector) {
+            return browser.timeoutsAsyncScript(5000).executeAsync(function(hostSelector, shadowElementSelector,done){
+                setTimeout(function(){
+                    var host = document.querySelector(hostSelector);
+                    var shadowElement = host.shadowRoot.querySelector(shadowElementSelector);
+                    shadowElement.click();
+                    done();
+                }, 3000);
+            }, hostSelector, shadowElementSelector);
+        });
     },
     //
     // Gets executed after all tests are done. You still have access to all global variables from

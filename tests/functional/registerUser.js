@@ -14,8 +14,13 @@ describe(`Given the user is on the home page`, function () {
   });
 
   it(`the user should be able to start the registration process`, function* () {
-    yield homePage.register.click();
+    yield homePage.register();
     let title = yield browser.getTitle();
+
     expect(title).toEqual('Wizard - Step 1')
   });
+
+  //describe(`and the register `, function() {
+  //
+  //});
 });

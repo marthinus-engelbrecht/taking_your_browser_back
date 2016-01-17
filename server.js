@@ -1,8 +1,10 @@
 var express = require('express');
 var app = express();
 
+app.use(express.static(__dirname));
+
 app.all('/*', function(req, res, next) {
-  res.sendFile('index.html', { root: __dirname });
+    res.sendFile('index.html', { root: __dirname });
 });
 
 console.log('Listening on port 8080');
