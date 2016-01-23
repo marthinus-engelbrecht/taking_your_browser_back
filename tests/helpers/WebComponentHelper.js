@@ -6,7 +6,14 @@ export default {
     },
 
     appendToDOM(component){
-        let body = document.getElementsByTagName('body')[0];
+        let body = document.getElementsByTagName('body')[ 0 ];
         body.appendChild(component);
+    },
+
+    createComponentFromHtml(html) {
+        let wrapper = document.createElement(`div`);
+        wrapper.innerHTML = html;
+        let theWebComponent = wrapper.firstChild;
+        return theWebComponent;
     }
 }

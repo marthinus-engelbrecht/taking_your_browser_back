@@ -7,7 +7,8 @@ System.config({
         'app': 'app/app.js',
         'injector': 'app/components/injector/injector.js',
         'binder': 'app/components/binder/binder.js',
-        'baseElement': 'app/components/baseElement/baseElement.js'
+        'baseElement': 'app/components/baseElement/baseElement.js',
+        'componentPlaceholder': 'app/components/componentPlaceholder/componentPlaceholder.js'
     },
     meta: {
         // meaning [baseURL]/vendor/angular.js when no other rules are present

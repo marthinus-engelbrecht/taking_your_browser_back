@@ -1,6 +1,7 @@
 import 'injector';
 import HomePage from 'homePage';
 import Router from 'router';
+import ComponentPlaceholder from 'componentPlaceholder'
 
 let router = new Router();
 
@@ -16,3 +17,4 @@ router.document =  document;
 injector.register('router', router);
 
 document.registerElement('home-page', HomePage);
+document.registerElement('component-placeholder', ComponentPlaceholder);

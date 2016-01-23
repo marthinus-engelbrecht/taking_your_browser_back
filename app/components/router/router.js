@@ -20,7 +20,7 @@ class Router {
           this.document.title = state.title;
         }
         return found;
-    }, this);
+    });
   }
 
   getCurrentState(){
