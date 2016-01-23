@@ -1,4 +1,5 @@
 import Router from './router.js';
+import {using} from 'rock-solid';
 
 describe(`Given the router has been created`, function() {
     let router;
@@ -19,7 +20,7 @@ describe(`Given the router has been created`, function() {
 
     beforeEach(function() {
         history = jasmine.createSpyObj('history', [ 'pushState' ]);
-        componentPlaceholder = jasmine.createSpyObj('componentPlaceholder', ['updateContent']);
+        componentPlaceholder = jasmine.createSpyObj('componentPlaceholder', [ 'updateContent' ]);
         document = {};
         router = new Router();
         router.history = history;
@@ -45,26 +46,41 @@ describe(`Given the router has been created`, function() {
             router.registerState(stepOneState);
         });
 
-        describe(`when router.goto() is called with a name`, function() {
+        using([
+            {
+                input: 'name'
+            },
+            {
+                input: 'path'
+            }
+        ], function(type) {
+            describe(`when router.goto() is called with a '${type}'`, function() {
+                beforeEach(function() {
+                    router.goto(homeState[type]);
+                });
+
+                it(`it should set the current state to the state matching the name`, function() {
+                    let currentState = router.getCurrentState();
+                    expect(currentState).toEqual(homeState);
+                });
+
+                it(`it should set the title to that of the state`, function() {
+                    expect(document.title).toEqual(homeState.title)
+                });
+
+                it(`it should call componentPlaceholder.updateContent()`, function() {
+                    expect(componentPlaceholder.updateContent).toHaveBeenCalledWith(homeState.html);
+                });
+            });
+        });
+
+        describe(`when router.goto() is called with a 'name'`, function() {
             beforeEach(function() {
                 router.goto(homeState.name);
             });
 
-            it(`it should set the current state to the state matching the name`, function() {
-                let currentState = router.getCurrentState();
-                expect(currentState).toEqual(homeState);
-            });
-
             it(`it should update the history with the path of that state`, function() {
                 expect(history.pushState).toHaveBeenCalledWith(homeState.title, null, homeState.path);
-            });
-
-            it(`it should set the title to that the state`, function() {
-                expect(document.title).toEqual(homeState.title)
-            });
-
-            it(`it should call componentPlaceholder.updateContent()`, function(){
-                expect(componentPlaceholder.updateContent).toHaveBeenCalledWith(homeState.html);
             });
         });
     });

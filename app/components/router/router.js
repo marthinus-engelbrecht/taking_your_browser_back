@@ -3,15 +3,19 @@ class Router {
         this._states = [];
     }
 
-    registerState(state) {
-        this._states.push(state);
+    _updateStateByPath(path) {
+        this._currentState = this._states.find((state) => {
+            let found = state.path === path;
+            if (found) {
+                //Injected
+                this.document.title = state.title;
+                this.componentPlaceholder.updateContent(state.html);
+            }
+            return found;
+        });
     }
 
-    getStates() {
-        return this._states;
-    }
-
-    goto(name) {
+    _updateStateByName(name) {
         this._currentState = this._states.find((state) => {
             let found = state.name === name;
             if (found) {
@@ -22,6 +26,17 @@ class Router {
             }
             return found;
         });
+    }
+    registerState(state) {
+        this._states.push(state);
+    }
+
+    getStates() {
+        return this._states;
+    }
+
+    goto(nameOrPath) {
+        nameOrPath.includes('/') ? this._updateStateByPath(nameOrPath) : this._updateStateByName(nameOrPath);
     }
 
     getCurrentState() {
