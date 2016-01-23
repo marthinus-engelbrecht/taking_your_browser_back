@@ -12,9 +12,9 @@ describe(`Given the home page web component has been created`, function() {
     });
 
     describe(`when register is clicked`, function() {
-        it(`it should call router.goto()`, function() {
+        it(`it should call router.goto() with register`, function() {
             homePage.registerButton.click();
-            expect(router.goto).toHaveBeenCalledWith('/register/wizard/step1');
+            expect(router.goto).toHaveBeenCalledWith('register');
         });
     });
 });

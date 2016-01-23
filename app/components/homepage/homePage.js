@@ -26,7 +26,7 @@ class HomePage extends HTMLElement {
     }
 
     register() {
-        this.router.goto('/register/wizard/step1');
+        this.router.goto('register');
     }
 }
 
