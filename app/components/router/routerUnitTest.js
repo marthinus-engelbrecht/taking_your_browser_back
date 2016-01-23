@@ -84,4 +84,25 @@ describe(`Given the router has been created`, function() {
             });
         });
     });
+
+    describe(`when the 'popstate' event occurs `, function() {
+        beforeEach(function() {
+            router.goto = jasmine.createSpy('goto')
+
+            let event = new Event('popstate');
+            window.dispatchEvent(event);
+        });
+
+        it(`it should call router.goto with the current url`, function(done) {
+            setTimeout(function(){
+                expect(router.goto).toHaveBeenCalledWith(location.pathname);
+                done();
+            }, 100);
+        });
+    });
+
+    afterEach(function() {
+        window.removeEventListener('popstate', router.onPopstate)
+    });
+
 });

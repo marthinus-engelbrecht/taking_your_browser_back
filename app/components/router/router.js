@@ -1,5 +1,12 @@
 class Router {
     constructor() {
+        this.onPopstate = function(){
+            this.goto(location.pathname);
+        };
+
+        this.onPopstate = this.onPopstate.bind(this); //Trickery to make sure that onPopstate is bound to the router instance
+
+        window.addEventListener('popstate', this.onPopstate);
         this._states = [];
     }
 
