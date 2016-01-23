@@ -13,8 +13,16 @@ router.registerState({
     name: 'register',
     path: '/register/wizard/step1',
     title: 'Wizard - Step 1',
-    html: '<registration-page>'
+    html: `<input type="date">`
 });
+
+router.registerState({
+    name: 'home',
+    path: '/home',
+    title: 'One step back',
+    html: `<home-page></home-page>`
+});
+
 
 router.history = history;
 router.document = document;
@@ -23,3 +31,5 @@ router.componentPlaceholder = componentPlaceholder;
 injector.register('router', router);
 
 document.registerElement('home-page', HomePage);
+
+router.goto('home');
